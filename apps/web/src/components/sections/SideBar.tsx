@@ -2,25 +2,31 @@
 
 import { FC, useState } from "react";
 import { Menu, X, Home, Inbox, RefreshCcw } from "lucide-react";
+import { useUserContext } from "@/context/UserContext";
+import useUser from "@/hooks/useUser";
+import { useRouter } from "next/navigation";
 
 interface SideBarProps {
-  role: "admin" | "user";
-  onSwitchRole?: () => void;
   onLogout?: () => void;
 }
 
-const SideBar: FC<SideBarProps> = ({ role, onSwitchRole, onLogout }) => {
-  const [isOpen, setIsOpen] = useState(false);
-
+const SideBar: FC<SideBarProps> = ({ onLogout }) => {
+   const [isOpen, setIsOpen] = useState(false);
+   const { role, switchRole } = useUser();
+const router = useRouter();
   const MenuItems = () => (
     <nav className="flex flex-col gap-2.5 px-2 py-2">
       {role === "admin" && (
         <>
-          <button className="text-left hover:text-blue-600 hover:bg-[#EAF5F9] hover:rounded-lg flex gap-[10px] p-3 transition-all duration-200">
+          <button
+          onClick={() => router.push('/admin/home')}
+           className="text-left hover:text-blue-600 hover:bg-[#EAF5F9] hover:rounded-lg flex gap-[10px] p-3 transition-all duration-200">
             <Home />
             Home
           </button>
-          <button className="text-left hover:text-blue-600 hover:bg-[#EAF5F9] hover:rounded-lg flex gap-[10px] p-3 transition-all duration-200">
+          <button
+              onClick={() => router.push('/admin/history')}
+          className="text-left hover:text-blue-600 hover:bg-[#EAF5F9] hover:rounded-lg flex gap-[10px] p-3 transition-all duration-200">
             <Inbox />
             History
           </button>
@@ -28,7 +34,7 @@ const SideBar: FC<SideBarProps> = ({ role, onSwitchRole, onLogout }) => {
       )}
       <button
         className="text-left hover:text-blue-600 hover:bg-[#EAF5F9] hover:rounded-lg flex gap-[10px] p-3 transition-all duration-200"
-        onClick={onSwitchRole}
+        onClick={switchRole}
       >
         <RefreshCcw />
         {role === "admin" ? "Switch to User" : "Switch to Admin"}
