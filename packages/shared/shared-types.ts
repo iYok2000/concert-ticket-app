@@ -1,3 +1,4 @@
+
 export type Role = 'admin' | 'user';
 
 export const ROLE_ARRAYS = {
@@ -5,7 +6,6 @@ export const ROLE_ARRAYS = {
   USER_ONLY: ["user"] as const,
   ALL_ROLES: ["admin", "user"] as const,
 } satisfies Record<string, readonly Role[]>;
-
 
 export interface User {
   id: string;
@@ -16,6 +16,7 @@ export interface User {
   updatedAt: Date;
 }
 
+// Role permissions
 export interface RolePermissions {
   canCreateEvents: boolean;
   canManageUsers: boolean;
@@ -41,46 +42,13 @@ export const ROLE_PERMISSIONS: Record<Role, RolePermissions> = {
   },
 };
 
-// Loading states - simplified to only what we actually use
-export interface LoadingState {
-  isRoleSwitching: boolean;
-  loadingMessage?: string;
-}
-
-// API Response types
-export interface ApiResponse<T = any> {
-  success: boolean;
-  data?: T;
-  message?: string;
+export interface ErrorResponse {
+  statusCode: number;
+  message: string;
   error?: string;
+  timestamp: string;
 }
 
-// Concert and Ticket types
-export interface Concert {
-  id: string;
-  title: string;
-  artist: string;
-  venue: string;
-  date: Date;
-  price: number;
-  availableSeats: number;
-  description?: string;
-  imageUrl?: string;
-}
-
-export interface Ticket {
-  id: string;
-  concertId: string;
-  userId: string;
-  seatNumber: string;
-  purchaseDate: Date;
-  status: 'active' | 'cancelled' | 'used';
-}
-
-// Navigation types
-export interface MenuItem {
-  title: string;
-  path: string;
-  icon?: string;
-  requiredRoles?: Role[];
-}
+// Common status types
+export type Status = 'pending' | 'confirmed' | 'cancelled';
+export type TicketStatus = 'active' | 'cancelled' | 'used';
