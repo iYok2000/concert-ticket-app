@@ -14,6 +14,9 @@ importers:
 
   apps/web:
     dependencies:
+      '@concert/shared':
+        specifier: workspace:*
+        version: link:../../packages/shared
       lucide-react:
         specifier: ^0.544.0
         version: 0.544.0(react@19.1.0)

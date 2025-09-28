@@ -1,38 +1,51 @@
 import { useUserContext } from "@/context/UserContext";
 import { useRouter } from "next/navigation";
+import { ROLE_ROUTES } from "@/constants/routes";
 
 const useUser = () => {
-  const { role, setRole, isRoleSwitching, setIsRoleSwitching } = useUserContext();
+  const { role, setRole, loadingState, setLoadingState } = useUserContext();
   const router = useRouter();
 
-  const switchRole = () => {
+    const switchRole = async () => {
     const newRole = role === "admin" ? "user" : "admin";
     
-    setIsRoleSwitching(true);
-    setRole(newRole);
-    
-    setTimeout(() => {
-      if (newRole === "admin") {
-        router.replace("/admin/home");
-      } else {
-        router.replace("/user/home");
-      }
+    try {
+      setLoadingState({
+        isRoleSwitching: true,
+        loadingMessage: `Switching to ${newRole} role`
+      });
+
+      setRole(newRole);
       
-      setTimeout(() => {
-        setIsRoleSwitching(false);
-      }, 100);
-    }, 50);
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      const targetPath = ROLE_ROUTES[newRole].home;
+      router.replace(targetPath);
+
+      await new Promise(resolve => setTimeout(resolve, 200));
+
+      setLoadingState({
+        isRoleSwitching: false,
+        loadingMessage: ""
+      });
+
+    } catch (error) {
+      console.error("Error switching role:", error);
+  
+      setLoadingState({
+        isRoleSwitching: false,
+        loadingMessage: ""
+      });
+    }
   };
 
-  const switchRoleWithoutRedirect = () => {
-    setRole(role === "admin" ? "user" : "admin");
-  };
+  const isLoading = loadingState.isRoleSwitching;
 
   return { 
     role, 
     switchRole, 
-    switchRoleWithoutRedirect,
-    isRoleSwitching
+    loadingState,
+    isLoading
   };
 }
 

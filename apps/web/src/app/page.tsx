@@ -2,21 +2,17 @@
 "use client";
 
 import { useEffect } from "react";
-import { useRouter } from "next/navigation";
 import useUser from "@/hooks/useUser";
+import { useNavigation } from "@/hooks/useNavigation";
 
 const Home = () => {
-  const router = useRouter();
   const { role } = useUser();
+  const { goToHome } = useNavigation();
 
   useEffect(() => {
     // Redirect to appropriate home page based on role
-    if (role === "admin") {
-      router.replace("/admin/home");
-    } else if (role === "user") {
-      router.replace("/user/home");
-    }
-  }, [role, router]);
+    goToHome();
+  }, [role, goToHome]);
 
   // Show loading state while redirecting
   return (

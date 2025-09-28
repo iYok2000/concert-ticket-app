@@ -1,5 +1,5 @@
-"use client";
 import { withRoleGuard } from "@/hoc/withRoleGuard";
+import { ROLE_ARRAYS } from "@concert/shared";
 
 function UserHomePage() {
   return (
@@ -132,4 +132,4 @@ function UserHomePage() {
   );
 }
 
-export default withRoleGuard(UserHomePage, ["user"]);
+export default withRoleGuard(UserHomePage, ROLE_ARRAYS.USER_ONLY);

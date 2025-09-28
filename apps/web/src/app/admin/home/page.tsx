@@ -1,5 +1,5 @@
-"use client";
 import { withRoleGuard } from "@/hoc/withRoleGuard";
+import { ROLE_ARRAYS } from "@concert/shared";
 
 function AdminHomePage() {
   return (
@@ -109,4 +109,4 @@ function AdminHomePage() {
   );
 }
 
-export default withRoleGuard(AdminHomePage, ["admin"]);
+export default withRoleGuard(AdminHomePage, ROLE_ARRAYS.ADMIN_ONLY);

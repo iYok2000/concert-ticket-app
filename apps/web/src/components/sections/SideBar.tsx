@@ -1,10 +1,9 @@
 "use client";
 
 import { FC, useState } from "react";
-import { Menu, X, Home, Inbox, RefreshCcw } from "lucide-react";
-import { useUserContext } from "@/context/UserContext";
+import { Menu, X, RefreshCcw, Home, Inbox, BarChart3, Users, Settings, Calendar, Ticket, User } from "lucide-react";
 import useUser from "@/hooks/useUser";
-import { useRouter } from "next/navigation";
+import { useNavigation } from "@/hooks/useNavigation";
 
 interface SideBarProps {
   onLogout?: () => void;
@@ -13,34 +12,50 @@ interface SideBarProps {
 const SideBar: FC<SideBarProps> = ({ onLogout }) => {
    const [isOpen, setIsOpen] = useState(false);
    const { role, switchRole } = useUser();
-const router = useRouter();
-  const MenuItems = () => (
-    <nav className="flex flex-col gap-2.5 px-2 py-2">
-      {role === "admin" && (
-        <>
-          <button
-          onClick={() => router.push('/admin/home')}
-           className="text-left hover:text-blue-600 hover:bg-[#EAF5F9] hover:rounded-lg flex gap-[10px] p-3 transition-all duration-200">
-            <Home />
-            Home
-          </button>
-          <button
-              onClick={() => router.push('/admin/history')}
-          className="text-left hover:text-blue-600 hover:bg-[#EAF5F9] hover:rounded-lg flex gap-[10px] p-3 transition-all duration-200">
-            <Inbox />
-            History
-          </button>
-        </>
-      )}
-      <button
-        className="text-left hover:text-blue-600 hover:bg-[#EAF5F9] hover:rounded-lg flex gap-[10px] p-3 transition-all duration-200"
-        onClick={switchRole}
-      >
-        <RefreshCcw />
-        {role === "admin" ? "Switch to User" : "Switch to Admin"}
-      </button>
-    </nav>
-  );
+   const { getMenuItems, navigateTo } = useNavigation();
+
+  // Icon mapping
+  const iconMap = {
+    Home: Home,
+    Inbox: Inbox,
+    BarChart3: BarChart3,
+    Users: Users,
+    Settings: Settings,
+    Calendar: Calendar,
+    Ticket: Ticket,
+    User: User,
+  };
+
+  const MenuItems = () => {
+    const menuItems = getMenuItems();
+    
+    return (
+      <nav className="flex flex-col gap-2.5 px-2 py-2">
+        {menuItems.map((item) => {
+          const IconComponent = iconMap[item.icon as keyof typeof iconMap];
+          
+          return (
+            <button
+              key={item.path}
+              onClick={() => navigateTo(item.path)}
+              className="text-left hover:text-blue-600 hover:bg-[#EAF5F9] hover:rounded-lg flex gap-[10px] p-3 transition-all duration-200"
+            >
+              <IconComponent />
+              {item.label}
+            </button>
+          );
+        })}
+        
+        <button
+          className="text-left hover:text-blue-600 hover:bg-[#EAF5F9] hover:rounded-lg flex gap-[10px] p-3 transition-all duration-200"
+          onClick={switchRole}
+        >
+          <RefreshCcw />
+          {role === "admin" ? "Switch to User" : "Switch to Admin"}
+        </button>
+      </nav>
+    );
+  };
 
   return (
     <>

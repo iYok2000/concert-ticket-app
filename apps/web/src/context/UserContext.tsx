@@ -1,37 +1,43 @@
 "use client";
+import { LoadingState, Role } from "@concert/shared";
 import { createContext, FC, PropsWithChildren, useContext, useState } from "react";
-
-type Role = "admin" | "user";
 
 interface UserContextType {
     role: Role;
     setRole: (role: Role) => void;
-    isRoleSwitching: boolean;
-    setIsRoleSwitching: (switching: boolean) => void;
+    loadingState: LoadingState;
+    setLoadingState: (state: Partial<LoadingState>) => void;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const UserProvider: FC<PropsWithChildren> = ({ children }) => {
     const [role, setRole] = useState<Role>("admin");
-    const [isRoleSwitching, setIsRoleSwitching] = useState(false);
+    const [loadingState, setLoadingStateInternal] = useState<LoadingState>({
+        isRoleSwitching: false,
+        loadingMessage: ""
+    });
+
+    const setLoadingState = (newState: Partial<LoadingState>) => {
+        setLoadingStateInternal(prev => ({ ...prev, ...newState }));
+    };
 
     return (
         <UserContext.Provider value={{ 
             role, 
             setRole, 
-            isRoleSwitching, 
-            setIsRoleSwitching 
+            loadingState, 
+            setLoadingState 
         }}>
             {children}
         </UserContext.Provider>
     );
-}
+};
 
 export const useUserContext = () => {
     const context = useContext(UserContext);
-    if (!context) {
-        throw new Error("useUserContext must be used within a UserProvider");
+    if (context === undefined) {
+        throw new Error('useUserContext must be used within a UserProvider');
     }
     return context;
 };
