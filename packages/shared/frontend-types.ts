@@ -1,55 +1,39 @@
-import { Role } from './shared-types';
+import { User, Concert, Reservation } from './shared-types';
 
-export interface ConcertDisplay {
-  id: string;
-  title: string;
-  artist: string;
-  venue: string;
-  date: Date;
-  price: number;
-  availableSeats: number;
-  description?: string;
-  imageUrl?: string;
+export interface ConcertCardProps {
+  concert: Concert;
+  onReserve?: (concertId: string) => void;
+  showReserveButton?: boolean;
 }
 
-export interface TicketDisplay {
-  id: string;
-  concertId: string;
-  userId: string;
-  seatNumber: string;
-  purchaseDate: Date;
-  status: 'active' | 'cancelled' | 'used';
-  concert?: ConcertDisplay;
-}
-export interface UserDisplay {
-    id: string;
-    name: string;
-    email: string;
-    role: Role;
-    createdAt: Date;
-    isActive: boolean;
+export interface ReservationListProps {
+  reservations: Reservation[];
+  onCancel?: (reservationId: string) => void;
+  showActions?: boolean;
 }
 
-export interface BookingDisplay {
-  id: string;
-  userId: string;
-  concertId: string;
-  tickets: TicketDisplay[];
-  totalAmount: number;
-  status: 'pending' | 'confirmed' | 'cancelled';
-  createdAt: Date;
-  updatedAt: Date;
-  concert?: ConcertDisplay;
+export interface ConcertForm {
+  name: string;
+  description: string;
+  totalSeats: number;
 }
 
-export interface MenuItem {
-  title: string;
-  path: string;
-  icon?: string;
-  requiredRoles?: Role[];
+export interface UserForm {
+  email: string;
+  name: string;
 }
 
 export interface LoadingState {
-  isRoleSwitching: boolean;
-  loadingMessage?: string;
+  isLoading: boolean;
+  error: string | null;
+}
+
+export interface ConcertListState extends LoadingState {
+  concerts: Concert[];
+  filter: 'all' | 'available' | 'sold-out';
+}
+
+export interface ReservationState extends LoadingState {
+  reservations: Reservation[];
+  selectedReservation: Reservation | null;
 }

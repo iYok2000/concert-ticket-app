@@ -50,6 +50,7 @@ export class NavigationService {
 
   handleRoleSwitch(newRole: Role, onRoleChange: (role: Role) => void) {
     onRoleChange(newRole);
+    this.updateRole(newRole);
     
     this.goToRoleHome(newRole);
   }
@@ -62,9 +63,9 @@ export class NavigationService {
         return [
           { label: 'Home', path: ROUTES.ADMIN.HOME, icon: 'Home' },
           { label: 'History', path: ROUTES.ADMIN.HISTORY, icon: 'Inbox' },
-          { label: 'Dashboard', path: ROUTES.ADMIN.DASHBOARD, icon: 'BarChart3' },
-          { label: 'Users', path: ROUTES.ADMIN.USERS, icon: 'Users' },
-          { label: 'Settings', path: ROUTES.ADMIN.SETTINGS, icon: 'Settings' },
+          // { label: 'Dashboard', path: ROUTES.ADMIN.DASHBOARD, icon: 'BarChart3' },
+          // { label: 'Users', path: ROUTES.ADMIN.USERS, icon: 'Users' },
+          // { label: 'Settings', path: ROUTES.ADMIN.SETTINGS, icon: 'Settings' },
         ];
       
       case 'user':

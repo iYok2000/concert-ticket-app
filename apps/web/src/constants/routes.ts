@@ -10,9 +10,9 @@ export const ROUTES = {
   ADMIN: {
     HOME: '/admin/home',
     HISTORY: '/admin/history',
-    DASHBOARD: '/admin/dashboard',
-    USERS: '/admin/users',
-    SETTINGS: '/admin/settings',
+    // DASHBOARD: '/admin/dashboard',
+    // USERS: '/admin/users',
+    // SETTINGS: '/admin/settings',
   },
   
   // User routes
@@ -23,7 +23,11 @@ export const ROUTES = {
   ROOT: '/',
 } as const;
 
-export const ROLE_ROUTES = {
+export const ROLE_ROUTES: Record<Role, {
+  home: string;
+  default: string;
+  allowed: string[];
+}> = {
   admin: {
     home: ROUTES.ADMIN.HOME,
     default: ROUTES.ADMIN.HOME,
@@ -34,7 +38,7 @@ export const ROLE_ROUTES = {
     default: ROUTES.USER.HOME,
     allowed: Object.values(ROUTES.USER),
   },
-} as const;
+};
 
 
 export const ROUTE_ACCESS = {

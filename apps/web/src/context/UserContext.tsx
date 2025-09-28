@@ -1,6 +1,11 @@
 "use client";
-import { LoadingState, Role } from "@concert/shared";
+import { Role } from "@concert/shared";
 import { createContext, FC, PropsWithChildren, useContext, useState } from "react";
+
+interface LoadingState {
+    isRoleSwitching: boolean;
+    loadingMessage: string;
+}
 
 interface UserContextType {
     role: Role;
@@ -19,7 +24,7 @@ export const UserProvider: FC<PropsWithChildren> = ({ children }) => {
     });
 
     const setLoadingState = (newState: Partial<LoadingState>) => {
-        setLoadingStateInternal(prev => ({ ...prev, ...newState }));
+        setLoadingStateInternal((prev: LoadingState) => ({ ...prev, ...newState }));
     };
 
     return (

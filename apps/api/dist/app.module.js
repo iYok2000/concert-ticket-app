@@ -8,16 +8,27 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
-const app_controller_1 = require("./app.controller");
-const app_service_1 = require("./app.service");
+const core_1 = require("@nestjs/core");
+const concerts_module_1 = require("./modules/concerts/concerts.module");
+const reservations_module_1 = require("./modules/reservations/reservations.module");
+const users_module_1 = require("./modules/users/users.module");
+const all_exceptions_filter_1 = require("./common/filters/all-exceptions.filter");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [],
-        controllers: [app_controller_1.AppController],
-        providers: [app_service_1.AppService],
+        imports: [
+            users_module_1.UsersModule,
+            concerts_module_1.ConcertsModule,
+            reservations_module_1.ReservationsModule,
+        ],
+        providers: [
+            {
+                provide: core_1.APP_FILTER,
+                useClass: all_exceptions_filter_1.AllExceptionsFilter,
+            },
+        ],
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map

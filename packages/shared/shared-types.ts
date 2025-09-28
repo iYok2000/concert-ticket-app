@@ -1,54 +1,62 @@
-
 export type Role = 'admin' | 'user';
 
 export const ROLE_ARRAYS = {
-  ADMIN_ONLY: ["admin"] as const,
-  USER_ONLY: ["user"] as const,
-  ALL_ROLES: ["admin", "user"] as const,
-} satisfies Record<string, readonly Role[]>;
+  ADMIN_ONLY: ['admin'] as Role[],
+  USER_ONLY: ['user'] as Role[],
+  ALL_ROLES: ['admin', 'user'] as Role[],
+};
 
-export interface User {
+export interface BaseUser {
   id: string;
   email: string;
+  name: string;
   role: Role;
-  name?: string;
   createdAt: Date;
   updatedAt: Date;
 }
 
-// Role permissions
-export interface RolePermissions {
-  canCreateEvents: boolean;
-  canManageUsers: boolean;
-  canViewAnalytics: boolean;
-  canBookTickets: boolean;
-  canCancelBookings: boolean;
+export interface BaseConcert {
+  id: string;
+  name: string;
+  description: string;
+  date: Date;
+  venue: string;
+  totalSeats: number;
+  reservedSeats: number;
+  availableSeats: number;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
-export const ROLE_PERMISSIONS: Record<Role, RolePermissions> = {
-  admin: {
-    canCreateEvents: true,
-    canManageUsers: true,
-    canViewAnalytics: true,
-    canBookTickets: true,
-    canCancelBookings: true,
-  },
-  user: {
-    canCreateEvents: false,
-    canManageUsers: false,
-    canViewAnalytics: false,
-    canBookTickets: true,
-    canCancelBookings: true,
-  },
-};
+export interface BaseReservation {
+  id: string;
+  userId: string;
+  concertId: string;
+  status: 'confirmed' | 'cancelled';
+  createdAt: Date;
+  updatedAt: Date;
+}
 
-export interface ErrorResponse {
-  statusCode: number;
-  message: string;
+export interface CreateReservationDto {
+  userId: string;
+  concertId: string;
+}
+export interface ApiResponse<T = any> {
+  success: boolean;
+  data?: T;
+  message?: string;
   error?: string;
-  timestamp: string;
 }
 
-// Common status types
-export type Status = 'pending' | 'confirmed' | 'cancelled';
-export type TicketStatus = 'active' | 'cancelled' | 'used';
+export interface PaginatedResponse<T> extends ApiResponse<T[]> {
+  pagination: {
+    page: number;
+    limit: number;
+    total: number;
+    totalPages: number;
+  };
+}
+
+export type User = BaseUser;
+export type Concert = BaseConcert;
+export type Reservation = BaseReservation;

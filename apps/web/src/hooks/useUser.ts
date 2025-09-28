@@ -1,36 +1,51 @@
 import { useUserContext } from "@/context/UserContext";
 import { useRouter } from "next/navigation";
 import { ROLE_ROUTES } from "@/constants/routes";
+import { Role } from "@concert/shared";
+import { useEffect, useRef } from "react";
 
 const useUser = () => {
   const { role, setRole, loadingState, setLoadingState } = useUserContext();
   const router = useRouter();
+  const pendingNavigation = useRef<string | null>(null);
+
+  // Handle navigation after role change
+  useEffect(() => {
+    if (pendingNavigation.current) {
+      const targetPath = pendingNavigation.current;
+      pendingNavigation.current = null;
+      
+      router.replace(targetPath);
+      
+      // Complete the loading state after navigation
+      setTimeout(() => {
+        setLoadingState({
+          isRoleSwitching: false,
+          loadingMessage: ""
+        });
+      }, 100);
+    }
+  }, [role, router, setLoadingState]);
 
     const switchRole = async () => {
-    const newRole = role === "admin" ? "user" : "admin";
-    
     try {
       setLoadingState({
         isRoleSwitching: true,
-        loadingMessage: `Switching to ${newRole} role`
+        loadingMessage: "กำลังเปลี่ยน Role"
       });
 
-      setRole(newRole);
-      
-      await new Promise(resolve => setTimeout(resolve, 100));
-
+      const newRole: Role = role === 'admin' ? 'user' : 'admin';
       const targetPath = ROLE_ROUTES[newRole].home;
-      router.replace(targetPath);
-
-      await new Promise(resolve => setTimeout(resolve, 200));
-
-      setLoadingState({
-        isRoleSwitching: false,
-        loadingMessage: ""
-      });
+      
+      // Store the target path for after role update
+      pendingNavigation.current = targetPath;
+      
+      // Update the role - navigation will happen in useEffect
+      setRole(newRole);
 
     } catch (error) {
       console.error("Error switching role:", error);
+      pendingNavigation.current = null;
   
       setLoadingState({
         isRoleSwitching: false,

@@ -1,3 +1,4 @@
+"use client"
 import { ComponentType, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Role } from "@concert/shared";
@@ -9,7 +10,7 @@ export function withRoleGuard<P extends {}>(
   allowedRoles: readonly Role[]
 ) {
   const GuardedComponent = function Guarded(props: P) {
-    const { role } = useUser();
+    const { role, isLoading } = useUser();
     const router = useRouter();
     const [isChecking, setIsChecking] = useState(true);
     const [isAuthorized, setIsAuthorized] = useState(false);
@@ -18,21 +19,23 @@ export function withRoleGuard<P extends {}>(
       const checkAuth = () => {
         setIsChecking(true);
 
-        setTimeout(() => {
-          const authorized = allowedRoles.includes(role);
-          
-          if (!authorized) {
-            router.replace(ROUTES.PUBLIC.UNAUTHORIZED);
-            return;
-          }
+        if (isLoading) {
+          return;
+        }
 
-          setIsAuthorized(true);
-          setIsChecking(false);
-        }, 300);
+        const authorized = allowedRoles.includes(role);
+        
+        if (!authorized) {
+          router.replace(ROUTES.PUBLIC.UNAUTHORIZED);
+          return;
+        }
+
+        setIsAuthorized(true);
+        setIsChecking(false);
       };
 
       checkAuth();
-    }, [role, allowedRoles, router]);
+    }, [role, allowedRoles, router, isLoading]);
 
     if (isChecking || !isAuthorized) {
       return null;
