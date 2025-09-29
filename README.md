@@ -33,3 +33,15 @@ pnpm dev      # Start both servers รัน command นี้อันเดี
 pnpm dev:api  # API only
 pnpm dev:web  # Web only
 ```
+
+Bonus Task (Optional):
+● Express your opinion about how to optimize your website in case that this
+website contains intensive data and when more people access, the lower speed
+you get?
+- Use CDN + Caching (Redis) ลดโหลดซ้ำ
+	•	Optimize Database: index, pagination, query ให้เบา
+        • Monitoring หาคอขวดแล้วแก้ตรงจุด
+● Express your opinion about how to handle when many users want to reserve the
+ticket at the same time? We want to ensure that in the concerts there is no one
+that needs to stand up during the show
+- Queue System (RabbitMQ/Kafka) ควบคุมลำดับจอง
