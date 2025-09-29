@@ -44,7 +44,7 @@ function AdminHistoryPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
-              <Link
+              {/* <Link
                 href="/admin/home"
                 className="inline-flex items-center text-gray-600 hover:text-gray-900"
               >
@@ -52,7 +52,7 @@ function AdminHistoryPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                 </svg>
                 Back to Dashboard
-              </Link>
+              </Link> */}
               <div>
                 <h1 className="text-3xl font-bold text-gray-900">
                   Reservation History

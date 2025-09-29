@@ -27,7 +27,7 @@ export const ConcertGrid = () => {
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-[400px]">
-        <div className="text-lg">Loading concerts...</div>
+        <div className="text-lg">Loading concerts</div>
       </div>
     );
   }
@@ -42,7 +42,7 @@ export const ConcertGrid = () => {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6">
       {concerts.map((concert) => (
         <ConcertCard 
           key={concert.id} 

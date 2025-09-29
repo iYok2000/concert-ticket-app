@@ -1,4 +1,4 @@
-export interface CreateReservationDto {
-  concertId: string;
-  userId: string;
-}
+// export interface CreateReservationDto {
+//   concertId: string;
+//   userId: string;
+// }

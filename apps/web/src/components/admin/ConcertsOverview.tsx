@@ -1,3 +1,4 @@
+import { Award, CircleX } from 'lucide-react';
 import ConcertCard from './ConcertCard';
 import { Concert } from '@concert/shared';
 
@@ -44,8 +45,8 @@ export default function ConcertsOverview({
   return (
     <div>
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-        <div className="bg-white rounded-lg shadow p-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        {/* <div className="bg-white rounded-lg shadow p-6">
           <div className="flex items-center">
             <div className="flex-shrink-0">
               <div className="w-8 h-8 bg-blue-100 rounded-md flex items-center justify-center">
@@ -59,10 +60,10 @@ export default function ConcertsOverview({
               <p className="text-2xl font-bold text-gray-900">{concerts.length}</p>
             </div>
           </div>
-        </div>
+        </div> */}
 
-        <div className="bg-white rounded-lg shadow p-6">
-          <div className="flex items-center">
+        <div className="bg-[#0070A4] rounded-lg shadow p-6">
+          <div className="flex flex-col items-center gap-4">
             <div className="flex-shrink-0">
               <div className="w-8 h-8 bg-green-100 rounded-md flex items-center justify-center">
                 <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -71,44 +72,46 @@ export default function ConcertsOverview({
               </div>
             </div>
             <div className="ml-4">
-              <p className="text-sm font-medium text-gray-500">ที่นั่งทั้งหมด</p>
-              <p className="text-2xl font-bold text-gray-900">
+              <p className="text-sm font-medium text-white">Total of seats</p>
+              <p className="text-2xl font-bold text-white">
                 {Array.isArray(concerts) ? concerts.reduce((sum, concert) => sum + concert.totalSeats, 0).toLocaleString() : '0'}
               </p>
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow p-6">
-          <div className="flex items-center">
+        <div className="bg-[#00A58B] rounded-lg shadow p-6">
+          <div className="flex flex-col items-center gap-4">
             <div className="flex-shrink-0">
               <div className="w-8 h-8 bg-yellow-100 rounded-md flex items-center justify-center">
-                <svg className="w-5 h-5 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <Award></Award>
+                {/* <svg className="w-5 h-5 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
+                </svg> */}
               </div>
             </div>
             <div className="ml-4">
-              <p className="text-sm font-medium text-gray-500">จองแล้ว</p>
-              <p className="text-2xl font-bold text-gray-900">
+              <p className="text-sm font-medium text-white">Reserve</p>
+              <p className="text-2xl font-bold text-white">
                 {Array.isArray(concerts) ? concerts.reduce((sum, concert) => sum + concert.reservedSeats, 0).toLocaleString() : '0'}
               </p>
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow p-6">
-          <div className="flex items-center">
+        <div className="bg-[#F96464] rounded-lg shadow p-6">
+          <div className="flex flex-col items-center gap-4">
             <div className="flex-shrink-0">
               <div className="w-8 h-8 bg-red-100 rounded-md flex items-center justify-center">
-                <svg className="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <CircleX className="w-5 h-5 text-red-600" />
+                {/* <svg className="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
-                </svg>
+                </svg> */}
               </div>
             </div>
-            <div className="ml-4">
-              <p className="text-sm font-medium text-gray-500">เต็มแล้ว</p>
-              <p className="text-2xl font-bold text-gray-900">
+            <div className="ml-4 ">
+              <p className="text-sm font-medium text-white">Cancel</p>
+              <p className="text-2xl font-bold text-white">
                 {Array.isArray(concerts) ? concerts.filter(concert => concert.availableSeats === 0).length : 0}
               </p>
             </div>
@@ -117,7 +120,7 @@ export default function ConcertsOverview({
       </div>
 
       {/* Concerts Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-1 gap-6">
         {Array.isArray(concerts) ? concerts.map((concert) => (
           <ConcertCard
             key={concert.id}

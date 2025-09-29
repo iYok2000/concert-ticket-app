@@ -99,55 +99,55 @@ export default function ReservationHistoryTable({
 
   return (
     <div className="overflow-x-auto">
-      <table className="min-w-full bg-white border border-gray-200">
-        <thead className="bg-gray-50">
-          <tr>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Booking Time
+      <table className="min-w-full bg-white border-gray-400 border rounded-lg shadow-md">
+        <thead className="bg-gray-50 border-b border-gray-400">
+          <tr className=''>
+            <th className="px-6 py-3 text-left text-[20px] font-semibold text-black  tracking-wider  border-r border-gray-400">
+              Date time
             </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              User
+            <th className="px-6 py-3 text-left text-[20px] font-semibold text-black  tracking-wider  border-r border-gray-400">
+              Username
             </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Concert
+            <th className="px-6 py-3 text-left text-[20px] font-semibold text-black  tracking-wider  border-r border-gray-400">
+              Concert name
             </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Status
+            <th className="px-6 py-3 text-left text-[20px] font-semibold text-black  tracking-wider ">
+              Action
             </th>
             {/* <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
               Last Updated
             </th> */}
           </tr>
         </thead>
-        <tbody className="bg-white divide-y divide-gray-200">
+        <tbody className="bg-white divide-y divide-gray-300  ">
           {enrichedReservations.map((reservation) => (
-            <tr key={reservation.id} className="hover:bg-gray-50">
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+            <tr key={reservation.id} className="hover:bg-gray-50 ">
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 border-r border-gray-400">
                 {formatDateTime(reservation.createdAt)}
               </td>
-              <td className="px-6 py-4 whitespace-nowrap">
+              <td className="px-6 py-4 whitespace-nowrap border-r border-gray-400">
                 <div className="flex flex-col">
                   <div className="text-sm font-medium text-gray-900">
                     {reservation.user?.name || 'Unknown User'}
                   </div>
-                  <div className="text-sm text-gray-500">
+                  {/* <div className="text-sm text-gray-500">
                     {reservation.user?.email || `ID: ${reservation.userId}`}
-                  </div>
+                  </div> */}
                 </div>
               </td>
-              <td className="px-6 py-4 whitespace-nowrap">
+              <td className="px-6 py-4 whitespace-nowrap border-r border-gray-400">
                 <div className="flex flex-col">
                   <div className="text-sm font-medium text-gray-900">
                     {reservation.concert?.name || 'Unknown Concert'}
                   </div>
-                  <div className="text-sm text-gray-500">
+                  {/* <div className="text-sm text-gray-500">
                     {reservation.concert?.venue}
-                  </div>
+                  </div> */}
                 </div>
               </td>
               <td className="px-6 py-4 whitespace-nowrap">
                 <span className={getStatusBadge(reservation.status)}>
-                  {reservation.status === 'confirmed' ? 'จองอยู่' : 'ยกเลิกแล้ว'}
+                  {reservation.status === 'confirmed' ? 'Reserve' : 'Cancel'}
                 </span>
               </td>
               {/* <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
@@ -158,14 +158,14 @@ export default function ReservationHistoryTable({
         </tbody>
       </table>
       
-      <div className="mt-4 flex justify-end">
+      {/* <div className="mt-4 flex justify-end">
         <button
           onClick={onRefresh}
           className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors"
         >
           Refresh Data
         </button>
-      </div>
+      </div> */}
     </div>
   );
 }
