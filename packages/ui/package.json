@@ -1,0 +1,35 @@
+{
+  "name": "@concert/ui",
+  "version": "1.0.0",
+  "description": "Shared UI components for Concert Ticket App",
+  "main": "index.ts",
+  "types": "index.ts",
+  "files": [
+    "*.ts",
+    "*.tsx",
+    "components/**/*.ts",
+    "components/**/*.tsx"
+  ],
+  "exports": {
+    ".": "./index.ts",
+    "./components/base": "./components/base/index.ts",
+    "./components/forms": "./components/forms/index.ts"
+  },
+  "scripts": {
+    "type-check": "tsc --noEmit",
+    "clean": "rm -rf dist *.js *.js.map"
+  },
+  "dependencies": {
+    "@concert/types": "workspace:*",
+    "@concert/utils": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "typescript": "^5.0.0"
+  }
+}

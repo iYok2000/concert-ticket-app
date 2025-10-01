@@ -1,0 +1,29 @@
+{
+  "name": "@concert/utils",
+  "version": "1.0.0",
+  "description": "Shared utilities and helper functions for Concert Ticket App",
+  "main": "index.ts",
+  "types": "index.ts",
+  "files": [
+    "*.ts",
+    "business/*.ts",
+    "validation/*.ts",
+    "data/*.ts"
+  ],
+  "exports": {
+    ".": "./index.ts",
+    "./business": "./business/index.ts",
+    "./validation": "./validation/index.ts",
+    "./data": "./data/index.ts"
+  },
+  "scripts": {
+    "type-check": "tsc --noEmit",
+    "clean": "rm -rf dist *.js *.js.map"
+  },
+  "dependencies": {
+    "@concert/types": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

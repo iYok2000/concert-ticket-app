@@ -1,12 +1,16 @@
+// Core Domain Types
 export type Role = 'admin' | 'user';
+export type ReservationStatus = 'confirmed' | 'cancelled';
 
+// Role Arrays for Authorization
 export const ROLE_ARRAYS = {
   ADMIN_ONLY: ['admin'] as Role[],
   USER_ONLY: ['user'] as Role[],
   ALL_ROLES: ['admin', 'user'] as Role[],
-};
+} as const;
 
-export interface BaseUser {
+// Base Domain Interfaces
+export interface User {
   id: string;
   email: string;
   name: string;
@@ -15,7 +19,7 @@ export interface BaseUser {
   updatedAt: Date;
 }
 
-export interface BaseConcert {
+export interface Concert {
   id: string;
   name: string;
   description: string;
@@ -24,23 +28,24 @@ export interface BaseConcert {
   totalSeats: number;
   reservedSeats: number;
   availableSeats: number;
+  soldOut?: boolean;
   createdAt: Date;
   updatedAt: Date;
 }
 
-export interface BaseReservation {
+export interface Reservation {
   id: string;
   userId: string;
   concertId: string;
-  status: 'confirmed' | 'cancelled';
+  status: ReservationStatus;
   createdAt: Date;
   updatedAt: Date;
+  // Populated fields for enriched responses
+  user?: User;
+  concert?: Concert;
 }
 
-export interface CreateReservationDto {
-  userId: string;
-  concertId: string;
-}
+// Common Response Types
 export interface ApiResponse<T = any> {
   success: boolean;
   data?: T;
@@ -57,6 +62,6 @@ export interface PaginatedResponse<T> extends ApiResponse<T[]> {
   };
 }
 
-export type User = BaseUser;
-export type Concert = BaseConcert;
-export type Reservation = BaseReservation;
+// Re-export API and UI types
+export * from './api';
+export * from './ui';

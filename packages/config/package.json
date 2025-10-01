@@ -1,0 +1,21 @@
+{
+  "name": "@concert/config",
+  "version": "1.0.0",
+  "description": "Shared configurations for Concert Ticket App",
+  "main": "index.ts",
+  "types": "index.ts",
+  "files": [
+    "*.ts"
+  ],
+  "exports": {
+    ".": "./index.ts"
+  },
+  "scripts": {
+    "type-check": "tsc --noEmit",
+    "clean": "rm -rf dist *.js *.js.map"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  }
+}

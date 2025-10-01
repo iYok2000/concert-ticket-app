@@ -18,7 +18,10 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@concert/shared": ["../../packages/shared/index.ts"]
+      "@concert/types": ["../../packages/types/index.ts"],
+      "@concert/utils": ["../../packages/utils/index.ts"],
+      "@concert/config": ["../../packages/config/index.ts"],
+      "@concert/api-client": ["../../packages/api-client/index.ts"]
     }
   }
 }

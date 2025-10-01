@@ -1,0 +1,24 @@
+{
+  "name": "@concert/types",
+  "version": "1.0.0",
+  "description": "Shared TypeScript types and interfaces for Concert Ticket App",
+  "main": "index.ts",
+  "types": "index.ts",
+  "files": [
+    "*.ts",
+    "api/*.ts",
+    "ui/*.ts"
+  ],
+  "exports": {
+    ".": "./index.ts",
+    "./api": "./api/index.ts",
+    "./ui": "./ui/index.ts"
+  },
+  "scripts": {
+    "type-check": "tsc --noEmit",
+    "clean": "rm -rf dist *.js *.js.map"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

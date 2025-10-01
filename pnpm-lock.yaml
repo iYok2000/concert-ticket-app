@@ -11,12 +11,21 @@ importers:
       concurrently:
         specifier: ^9.0.0
         version: 9.2.1
+      typescript:
+        specifier: ^5.0.0
+        version: 5.9.2
 
   apps/api:
     dependencies:
-      '@concert/shared':
+      '@concert/config':
         specifier: workspace:*
-        version: link:../../packages/shared
+        version: link:../../packages/config
+      '@concert/types':
+        specifier: workspace:*
+        version: link:../../packages/types
+      '@concert/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
       '@nestjs/common':
         specifier: ^10.0.0
         version: 10.4.20(class-transformer@0.5.1)(class-validator@0.14.2)(reflect-metadata@0.1.14)(rxjs@7.8.2)
@@ -102,9 +111,21 @@ importers:
 
   apps/web:
     dependencies:
-      '@concert/shared':
+      '@concert/api-client':
         specifier: workspace:*
-        version: link:../../packages/shared
+        version: link:../../packages/api-client
+      '@concert/config':
+        specifier: workspace:*
+        version: link:../../packages/config
+      '@concert/types':
+        specifier: workspace:*
+        version: link:../../packages/types
+      '@concert/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
+      '@concert/utils':
+        specifier: workspace:*
+        version: link:../../packages/utils
       '@tailwindcss/line-clamp':
         specifier: ^0.4.4
         version: 0.4.4(tailwindcss@4.1.13)
@@ -149,7 +170,68 @@ importers:
         specifier: ^5
         version: 5.9.2
 
-  packages/shared: {}
+  packages/api-client:
+    dependencies:
+      '@concert/config':
+        specifier: workspace:*
+        version: link:../config
+      '@concert/types':
+        specifier: workspace:*
+        version: link:../types
+      '@concert/utils':
+        specifier: workspace:*
+        version: link:../utils
+    devDependencies:
+      typescript:
+        specifier: ^5.0.0
+        version: 5.9.2
+
+  packages/config:
+    devDependencies:
+      typescript:
+        specifier: ^5.0.0
+        version: 5.9.2
+
+  packages/types:
+    devDependencies:
+      typescript:
+        specifier: ^5.0.0
+        version: 5.9.2
+
+  packages/ui:
+    dependencies:
+      '@concert/types':
+        specifier: workspace:*
+        version: link:../types
+      '@concert/utils':
+        specifier: workspace:*
+        version: link:../utils
+      react:
+        specifier: ^19.0.0
+        version: 19.1.0
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.1.0(react@19.1.0)
+    devDependencies:
+      '@types/react':
+        specifier: ^19.0.0
+        version: 19.1.14
+      '@types/react-dom':
+        specifier: ^19.0.0
+        version: 19.1.9(@types/react@19.1.14)
+      typescript:
+        specifier: ^5.0.0
+        version: 5.9.2
+
+  packages/utils:
+    dependencies:
+      '@concert/types':
+        specifier: workspace:*
+        version: link:../types
+    devDependencies:
+      typescript:
+        specifier: ^5.0.0
+        version: 5.9.2
 
 packages:
 

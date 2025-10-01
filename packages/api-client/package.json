@@ -1,0 +1,25 @@
+{
+  "name": "@concert/api-client",
+  "version": "1.0.0",
+  "description": "API client for Concert Ticket App",
+  "main": "index.ts",
+  "types": "index.ts",
+  "files": [
+    "*.ts"
+  ],
+  "exports": {
+    ".": "./index.ts"
+  },
+  "scripts": {
+    "type-check": "tsc --noEmit",
+    "clean": "rm -rf dist *.js *.js.map"
+  },
+  "dependencies": {
+    "@concert/types": "workspace:*",
+    "@concert/config": "workspace:*",
+    "@concert/utils": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

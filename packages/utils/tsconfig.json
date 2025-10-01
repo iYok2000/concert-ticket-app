@@ -1,0 +1,14 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "./",
+    "outDir": "./dist",
+    "lib": ["ES2017"],
+    "declaration": true,
+    "noEmit": true
+  },
+  "include": [
+    "*.ts",
+    "**/*.ts"
+  ]
+}

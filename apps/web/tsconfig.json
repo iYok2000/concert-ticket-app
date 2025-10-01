@@ -20,7 +20,11 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@concert/shared": ["../../packages/shared"]
+      "@concert/types": ["../../packages/types"],
+      "@concert/utils": ["../../packages/utils"],
+      "@concert/ui": ["../../packages/ui"],
+      "@concert/config": ["../../packages/config"],
+      "@concert/api-client": ["../../packages/api-client"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
